@@ -9,7 +9,7 @@
 <ion-content class="test" padding>
     <ion-card>
       <img class="img-card" src="assets/img/welcome1.jpg" />
-      <ion-card-content>
+      <ion-card-content (click)="test()">
         <ion-card-title>
           歡迎使用藥食評估 - 自我評估小幫手
           </ion-card-title>
@@ -30,7 +30,7 @@
             </ion-item>
             <ion-list>
               <ion-radio-group id="gender" name="gender" #gender="ngModel" [(ngModel)]="users.gender" required>
-                <ion-list-header>
+                <ion-list-header color="dark">
                   性別
                 </ion-list-header>
                 <ion-item>
@@ -75,7 +75,7 @@
             </ion-list>
 			<ion-item>
 			  <ion-label>記住我</ion-label>
-			  <ion-checkbox id="remember" name="remember" #remember="ngModel" [(ngModel)]="is_remember"></ion-checkbox>
+			  <ion-checkbox id="remember" name="remember" #remember="ngModel" [(ngModel)]="users.is_remember" [checked]="users.is_remember"></ion-checkbox>
 			</ion-item>
 			<br>
             <ion-button [disabled]="!myForm.form.valid" type="submit" (click)="next()">下一步</ion-button>

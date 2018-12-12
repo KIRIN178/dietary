@@ -1,12 +1,35 @@
 <ion-header>
   <ion-toolbar>
-	<ion-buttons slot="start">
-	  <ion-back-button text="前一步"></ion-back-button>
+	<ion-buttons class="hover" slot="start" (click)="goBack()">
+        <ion-icon name="arrow-back" text="aa"></ion-icon>
+        前一步
 	</ion-buttons>
-    <ion-title>second</ion-title>
+    <ion-title>輸入營養品</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-
+<ion-content class="test" padding>
+    <ion-card>
+      <img class="img-card" src="assets/img/welcome2.jpg" />
+      <ion-card-content>
+        <ion-card-title>
+          自我評估小幫手 - 第二步
+          </ion-card-title>
+        <p>
+          再來，我們需要您正在服用的營養品詳細內容。加油！剩這一小步就完成了！
+        </p>
+      </ion-card-content>
+    </ion-card>
+    <ion-item>
+      Item
+    </ion-item>
+    <ion-list-header>
+      List Header
+    </ion-list-header>
+    <ion-item-divider>
+      Item Divider
+    </ion-item-divider>
+    <ion-item button>
+      Item
+    </ion-item>
 </ion-content>

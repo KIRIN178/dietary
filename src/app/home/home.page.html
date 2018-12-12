@@ -1,12 +1,84 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Ionic Blank
+      藥食評估 - 自我評估小幫手
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs">docs</a> will be your guide.</p>
+<ion-content class="test" padding>
+    <ion-card>
+      <img class="img-card" src="assets/img/welcome1.jpg" />
+      <ion-card-content>
+        <ion-card-title>
+          歡迎使用藥食評估 - 自我評估小幫手
+          </ion-card-title>
+        <p>
+          首先，我們需要知道您的一些資料，這些資料在評估時會是重要的參考依據，請您細心填寫，不要弄錯了喲！
+        </p>
+      </ion-card-content>
+    </ion-card>
+    <ion-list>
+        <form #myForm="ngForm">
+            <ion-item>
+                <ion-label stacked>姓名</ion-label>
+                <ion-input type="text" class="input-text" [(ngModel)]="users.name" id="name" name="name" #name="ngModel" required></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label>生日</ion-label>
+                <ion-datetime displayFormat="YYYY-MM-DD" pickerFormat="YYYY MM DD" id="birthday" name="birthday" #birthday="ngModel" [(ngModel)]="users.birthday" (mousedown)="clickBirthday()" (ionCancel)="clickCancel()" cancelText="取消" doneText="確定"></ion-datetime>
+            </ion-item>
+            <ion-list>
+              <ion-radio-group id="gender" name="gender" #gender="ngModel" [(ngModel)]="users.gender" required>
+                <ion-list-header>
+                  性別
+                </ion-list-header>
+                <ion-item>
+                  <ion-label>男</ion-label>
+                  <ion-radio value="m"></ion-radio>
+                </ion-item>
+                <ion-item>
+                  <ion-label>女</ion-label>
+                  <ion-radio value="f"></ion-radio>
+                </ion-item>
+              </ion-radio-group>
+            </ion-list>
+            <ion-list [hidden]="users.gender!='f'">
+              <ion-radio-group id="pregnant" name="pregnant" #pregnant="ngModel" [(ngModel)]="users.is_pregnant" [required]="users.gender=='f'">
+                <ion-list-header>
+                  懷孕
+                </ion-list-header>
+                <ion-item>
+                  <ion-label>是</ion-label>
+                  <ion-radio value="y"></ion-radio>
+                </ion-item>
+                <ion-item>
+                  <ion-label>否</ion-label>
+                  <ion-radio value="n"></ion-radio>
+                </ion-item>
+              </ion-radio-group>
+            </ion-list>
+            <ion-list [hidden]="users.gender!='f'">
+              <ion-radio-group id="milk" name="milk" #milk="ngModel" [(ngModel)]="users.is_milk" [required]="users.gender=='f'">
+                <ion-list-header>
+                  哺乳
+                </ion-list-header>
+                <ion-item>
+                  <ion-label>是</ion-label>
+                  <ion-radio value="y"></ion-radio>
+                </ion-item>
+                <ion-item>
+                  <ion-label>否</ion-label>
+                  <ion-radio value="n"></ion-radio>
+                </ion-item>
+              </ion-radio-group>
+            </ion-list>
+			<ion-item>
+			  <ion-label>記住我</ion-label>
+			  <ion-checkbox id="remember" name="remember" #remember="ngModel" [(ngModel)]="is_remember"></ion-checkbox>
+			</ion-item>
+			<br>
+            <ion-button [disabled]="!myForm.form.valid" type="submit" (click)="next()">下一步</ion-button>
+        </form>
+    </ion-list>
 </ion-content>

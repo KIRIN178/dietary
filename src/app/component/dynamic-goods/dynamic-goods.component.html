@@ -1,0 +1,34 @@
+<form [formGroup]="form">
+    <div *ngFor="let item of goods; let i = index">
+        <ion-item [color]="item.show?'':'primary'" [class.active]="item.show" class="goods">
+            <ion-icon [name]="item.show?'arrow-dropdown':'arrow-dropleft'" margin-end></ion-icon>
+            營養品 {{i+1}}
+        </ion-item>
+        <ion-item>
+            <ion-label stacked>營養品名</ion-label>
+            <ion-input type="text" class="input-text" [value]="item.name" placeholder="請填寫" required></ion-input>
+        </ion-item>
+        <div *ngFor="let nutrition of item.nutritions; let idx = index">
+            <ion-item class="nutrition-header">
+                成分 {{idx+1}}
+            </ion-item>
+            <ion-item>
+                <ion-label stacked>成分名</ion-label>
+                <ion-input type="text" class="input-text" [value]="nutrition.name" placeholder="請填寫" required></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label stacked>劑量</ion-label>
+                <ion-input type="text" class="input-text" [value]="nutrition.dose" placeholder="請填寫" required></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label>單位</ion-label>
+                <ion-select [value]="nutrition.name" ok-text="確認" cancel-text="取消">
+                    <ion-select-option>請選擇</ion-select-option>
+                    <ion-select-option value="mg">毫克(mg)</ion-select-option>
+                    <ion-select-option value="mcg">微克(mcg)</ion-select-option>
+                    <ion-select-option value="IU">國際單位(IU)</ion-select-option>
+                </ion-select>
+            </ion-item>
+        </div>
+    </div>
+</form>

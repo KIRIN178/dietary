@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
 	<ion-buttons class="hover" slot="start" (click)="goBack()">
-        <ion-icon name="arrow-back" text="aa"></ion-icon>
+        <ion-icon name="arrow-back"></ion-icon>
         前一步
 	</ion-buttons>
     <ion-title>輸入營養品</ion-title>
@@ -20,16 +20,11 @@
         </p>
       </ion-card-content>
     </ion-card>
-    <ion-item>
-      Item
-    </ion-item>
-    <ion-list-header>
-      List Header
-    </ion-list-header>
-    <ion-item-divider>
-      Item Divider
-    </ion-item-divider>
-    <ion-item button>
-      Item
+    <ion-list>
+        <app-dynamic-goods [goods]="goods"></app-dynamic-goods>
+    </ion-list>
+    <ion-item button color="light" (click)="addGoods()">
+        <ion-icon name="add-circle" margin-end></ion-icon>
+        新增營養品
     </ion-item>
 </ion-content>

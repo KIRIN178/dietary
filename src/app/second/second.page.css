@@ -1,3 +1,6 @@
 .img-card {
   width: auto;
   max-height: 200px; }
+
+.hover:hover {
+  cursor: pointer; }

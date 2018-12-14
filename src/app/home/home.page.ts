@@ -14,7 +14,7 @@ export class HomePage {
         gender: '',
         is_pregnant: '',
         is_milk: '',
-        is_remember: ''
+        is_remember: false
     };
 	private is_birthday_init;
     private default_year;

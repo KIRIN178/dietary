@@ -1,0 +1,42 @@
+@import url(~@ionic/angular/css/core.css);
+@import url(~@ionic/angular/css/normalize.css);
+@import url(~@ionic/angular/css/structure.css);
+@import url(~@ionic/angular/css/typography.css);
+@import url(~@ionic/angular/css/padding.css);
+@import url(~@ionic/angular/css/float-elements.css);
+@import url(~@ionic/angular/css/text-alignment.css);
+@import url(~@ionic/angular/css/text-transformation.css);
+@import url(~@ionic/angular/css/flex-utils.css);
+ion-auto-complete {
+  display: block;
+  /*width: 90vw;
+    overflow    : hidden !important;
+    display: inline-block;*/
+  width: 100%;
+  /*display: flex;
+  flex-direction: column;*/ }
+  ion-auto-complete ion-searchbar {
+    padding: 1px !important; }
+  ion-auto-complete .hidden {
+    display: none; }
+  ion-auto-complete ul {
+    position: absolute;
+    max-height: 300px;
+    overflow: auto;
+    margin-top: 0px;
+    background: #FFF;
+    list-style-type: none;
+    padding: 0px;
+    z-index: 999;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12); }
+    ion-auto-complete ul li {
+      padding: 15px;
+      border-bottom: 1px solid #c1c1c1; }
+    ion-auto-complete ul ion-auto-complete-item {
+      height: 40px;
+      width: 100%; }
+    ion-auto-complete ul li:last-child {
+      border: none; }
+    ion-auto-complete ul li:hover {
+      cursor: pointer;
+      background: #f1f1f1; }

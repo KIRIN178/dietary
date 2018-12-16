@@ -12,9 +12,9 @@
             <ion-item class="nutrition-header">
                 成分 {{idx+1}}
             </ion-item>
-            <ion-item>
+            <ion-item class="auto-complete">
                 <ion-label stacked>成分名</ion-label>
-                <ion-input type="text" class="input-text" [value]="nutrition.name" placeholder="請填寫" required></ion-input>
+                <ion-auto-complete [dataProvider]="completeTestService"></ion-auto-complete>
             </ion-item>
             <ion-item>
                 <ion-label stacked>劑量</ion-label>
@@ -22,8 +22,7 @@
             </ion-item>
             <ion-item>
                 <ion-label>單位</ion-label>
-                <ion-select [value]="nutrition.name" ok-text="確認" cancel-text="取消">
-                    <ion-select-option>請選擇</ion-select-option>
+                <ion-select [value]="nutrition.name" placeholder="請選擇" ok-text="確認" cancel-text="取消">
                     <ion-select-option value="mg">毫克(mg)</ion-select-option>
                     <ion-select-option value="mcg">微克(mcg)</ion-select-option>
                     <ion-select-option value="IU">國際單位(IU)</ion-select-option>

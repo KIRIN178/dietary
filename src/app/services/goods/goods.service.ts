@@ -11,7 +11,7 @@ export class GoodsService {
           name: '',
           nutritions: [{
               name: '',
-              dose: 0,
+              dose: null,
               unit: ''
           }],
           show: true

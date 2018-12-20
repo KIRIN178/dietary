@@ -1,15 +1,14 @@
+import { Detail } from "../class/detail";
+
 export class Nutrition {
     name: string;
-    dose: number;
-    unit: string;
+    detail: Detail;
     
     constructor(nutrition: {
             name?: string,
-            dose?: number,
-            unit?: string
+            detail?: Detail,
         } = {}) {
         this.name = nutrition.name;
-        this.dose = nutrition.dose;
-        this.unit = nutrition.unit;
+        this.detail = nutrition.detail;
     }
 }

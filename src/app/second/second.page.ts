@@ -1,9 +1,12 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { NavController, LoadingController } from '@ionic/angular';
+import { FormGroup } from '@angular/forms';
+import { first, last, map, reduce, find, skipWhile } from 'rxjs/operators';
 
-import {injectStyles} from 'shadow-dom-inject-styles';
+import { injectStyles } from 'shadow-dom-inject-styles';
 
 import { GoodsService } from "../services/goods/goods.service";
+import { GoodsControlService } from "../services/goods/goods-control.service";
 import { ShareService } from "../services/data/share.service";
 
 
@@ -13,7 +16,6 @@ import { ShareService } from "../services/data/share.service";
   styleUrls: ['./second.page.scss']
 })
 export class SecondPage implements OnInit {
-  @ViewChild('aaa', { read: ElementRef }) alert:ElementRef;
   loadAPI: Promise<any>;
   private users = {
       name: '',
@@ -24,9 +26,10 @@ export class SecondPage implements OnInit {
       is_remember: ''
   };
   private goods: any[];
-  
+  private form: FormGroup;
 
-  constructor(public navCtrl: NavController, private data: ShareService, private gs: GoodsService, private el: ElementRef) {
+  constructor(public navCtrl: NavController, private data: ShareService, private gs: GoodsService, private el: ElementRef, private gcs: GoodsControlService) {
+      //alert(data.param["user"].name);
       
   }
   loadScript() {
@@ -39,24 +42,31 @@ export class SecondPage implements OnInit {
   }
   addGoods() {
       this.goods.push(this.gs.addGoods());
-      var obj = this;
-      setTimeout(function(){
-          const toolbar = (obj.el.nativeElement.querySelector('.auto-complete') as HTMLElement);
-          const styles = '.item-native {overflow: visible !important;}';
-          injectStyles(toolbar, '.item-native', styles);
-      }, 500);
+      this.form = this.gcs.toFormGroup(this.goods);
   }
   ngOnInit() {
-      this.data.currentParam.subscribe(data => this.users = data);
       this.goods = this.gs.getGoods();
-  }
-  ngAfterViewInit() {
+      this.form = this.gcs.toFormGroup(this.goods);
       
-      //console.log(this.alert.nativeElement.children[1]);
-      //alert('aa')
+  }
+  ngAfterViewChecked() {
+      //const toolbar = (this.el.nativeElement.querySelector('.test') as HTMLElement);
+      //const styles = '.inner-scroll {overflow: visible !important;}';
+      //injectStyles(toolbar, '.test', styles);
+  }
+  formChange(event) {
+      this.form = event;
   }
   goBack() {
       this.navCtrl.navigateForward('/home');
   }
-    
+  goNext() {
+      let _this = this;
+      this.data.getParam().pipe(first()).subscribe(val=>{
+          val["goods"] = this.goods;
+          _this.data.changeParam(val);
+          this.navCtrl.navigateForward('/third');
+      })
+      
+  }
 }

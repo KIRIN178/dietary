@@ -3,9 +3,24 @@
 
 .item.goods.active {
   border-color: #ccc !important;
-  background-color: #2D78FF !important;
+  background-color: #699EFE;
   color: #eee; }
+
+.item-accordion {
+  height: 49px;
+  padding-top: 0;
+  padding-bottom: 0;
+  transition: 0.09s all linear; }
+
+.item-accordion.item-hide {
+  height: 0px; }
+
+.goods:hover {
+  cursor: pointer; }
 
 .nutrition-header {
   border-color: #ccc !important;
   background-color: #D9D9D9 !important; }
+
+.nutrition-name {
+  width: 56px; }

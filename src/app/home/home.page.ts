@@ -49,10 +49,13 @@ export class HomePage {
 			localStorage.is_remember = this.users.is_remember;
 		}
 		else {
-			localStorage.removeItem('name');
-			localStorage.removeItem('is_remember');
+			//localStorage.removeItem('name');
+			//localStorage.removeItem('is_remember');
+            localStorage.clear();
 		}
-		this.data.changeParam(this.users);
+        let param = [];
+        param["user"] = this.users;
+		this.data.changeParam(param);
 		this.navCtrl.navigateForward('/second');
 	}
     clickBirthday() {

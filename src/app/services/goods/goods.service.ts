@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Goods } from "../../class/goods";
+import { Nutrition } from "../../class/nutrition";
 
 @Injectable({
   providedIn: 'root'
@@ -11,11 +12,20 @@ export class GoodsService {
           name: '',
           nutritions: [{
               name: '',
-              dose: null,
-              unit: ''
-          }],
+              detail: {
+                  dose: null,
+                  unit: ''      
+          }}],
           show: true
       });
+  }
+  addNutrition() {
+      return new Nutrition({
+          name: '',
+          detail: {
+              dose: null,
+              unit: ''
+      }})
   }
   getGoods() {
       return [];

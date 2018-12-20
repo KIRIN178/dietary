@@ -1,33 +1,40 @@
-<form [formGroup]="form">
+<form [formGroup]="form" #myForm *ngIf="form">
     <div *ngFor="let item of goods; let i = index">
-        <ion-item [color]="item.show?'':'primary'" [class.active]="item.show" class="goods">
-            <ion-icon [name]="item.show?'arrow-dropdown':'arrow-dropleft'" margin-end></ion-icon>
+        <ion-item [color]="item.show?'primary':''" [class.active]="!item.show" class="goods" (click)="item.show=!item.show">
+            <ion-icon [name]="item.show?'arrow-dropdown':'arrow-dropright'" margin-end></ion-icon>
             營養品 {{i+1}}
+            <ion-button fill="outline" slot="end" color="light" (click)="deleteGoods(i);$event.stopPropagation();" [hidden]="goods.length==1">刪除</ion-button>
         </ion-item>
-        <ion-item>
+        <ion-item class="item-accordion" [class.item-hide]="!item.show">
             <ion-label stacked>營養品名</ion-label>
-            <ion-input type="text" class="input-text" [value]="item.name" placeholder="請填寫" required></ion-input>
+            <ion-input type="text" class="input-text" [value]="item.name" (ionBlur)="updateGoodsName(i,$event)" placeholder="請填寫" required></ion-input>
         </ion-item>
-        <div *ngFor="let nutrition of item.nutritions; let idx = index">
-            <ion-item class="nutrition-header">
+        <div *ngFor="let nutrition of item.nutritions; let idx = index" >
+            <ion-item class="nutrition-header item-accordion" [class.item-hide]="!item.show">
                 成分 {{idx+1}}
+                <ion-button fill="outline" slot="end" color="medium" (click)="deleteNutrition(i,idx)" [hidden]="goods[i].nutritions.length==1">刪除</ion-button>
             </ion-item>
-            <ion-item class="auto-complete">
-                <ion-label stacked>成分名</ion-label>
-                <ion-auto-complete [dataProvider]="completeTestService"></ion-auto-complete>
+            <ion-item class="auto-complete item-accordion" [class.item-hide]="!item.show">
+                <ion-label class="nutrition-name" stacked>成分名</ion-label>
+                <ion-auto-complete [dataProvider]="completeTestService" (ionAutoInput)="updateNutritionName(i,idx)" (itemSelected)="updateNutritionName(i,idx)"></ion-auto-complete>
             </ion-item>
-            <ion-item>
+            <ion-item class="item-accordion" [class.item-hide]="!item.show">
                 <ion-label stacked>劑量</ion-label>
-                <ion-input type="text" class="input-text" [value]="nutrition.dose" placeholder="請填寫" required></ion-input>
+                <ion-input type="text" class="input-text" [value]="nutrition.detail.dose" (ionBlur)="numberCheck($event,i,idx)" placeholder="請填寫" (ionInput)="updateDose(i, idx, $event)" required></ion-input>
             </ion-item>
-            <ion-item>
+            <ion-item class="item-accordion" [class.item-hide]="!item.show">
                 <ion-label>單位</ion-label>
-                <ion-select [value]="nutrition.name" placeholder="請選擇" ok-text="確認" cancel-text="取消">
+                <ion-select [value]="nutrition.detail.unit" placeholder="請選擇" ok-text="確認" cancel-text="取消" (ionChange)="updateUnit(i, idx, $event)">
                     <ion-select-option value="mg">毫克(mg)</ion-select-option>
                     <ion-select-option value="mcg">微克(mcg)</ion-select-option>
                     <ion-select-option value="IU">國際單位(IU)</ion-select-option>
                 </ion-select>
             </ion-item>
         </div>
+        <ion-item class="item-accordion" [class.item-hide]="!item.show" button color="light" (click)="addNutrition(i)">
+            <ion-icon name="add" margin-end></ion-icon>
+            新增成分
+        </ion-item>
     </div>
+    
 </form>

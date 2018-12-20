@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+//import {enableProdMode} from '@angular/core';
+//enableProdMode();
 
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';

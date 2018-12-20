@@ -1,9 +1,10 @@
 <ion-header>
   <ion-toolbar>
-	<ion-buttons class="hover" slot="start" (click)="goBack()">
+      <ion-back-button defaultHref="/home" slot="start" text="前一步"></ion-back-button>
+	<!--<ion-buttons class="hover" slot="start" (click)="goBack()">
         <ion-icon name="arrow-back"></ion-icon>
         前一步
-	</ion-buttons>
+	</ion-buttons>-->
     <ion-title>輸入營養品</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -21,10 +22,11 @@
       </ion-card-content>
     </ion-card>
     <ion-list>
-        <app-dynamic-goods [goods]="goods"></app-dynamic-goods>
+        <app-dynamic-goods [goods]="goods" [form]="form" (formChange)="formChange($event)"></app-dynamic-goods>
     </ion-list>
     <ion-item button color="light" (click)="addGoods()">
         <ion-icon name="add-circle" margin-end></ion-icon>
         新增營養品
     </ion-item>
+    <ion-button [disabled]="!form.valid" type="submit" (click)="goNext()" expand="full" margin-top>下一步</ion-button>
 </ion-content>

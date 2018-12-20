@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 
 import { IonicModule } from '@ionic/angular';
 
@@ -26,6 +27,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     AutoCompleteModule,
     HttpModule,
+    HttpClientModule,
     RouterModule.forChild(routes)
   ],
   declarations: [

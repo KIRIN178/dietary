@@ -5,12 +5,15 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class ShareService {
-  private param = new BehaviorSubject(null);
+  public param = new BehaviorSubject(null);
   currentParam = this.param.asObservable();
 	
   constructor() { }
 	
   changeParam(data) {
 	  this.param.next(data);
+  }
+  getParam() {
+      return this.param;
   }
 }

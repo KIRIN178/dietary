@@ -14,20 +14,20 @@ export class CompleteTestService implements AutoCompleteService {
     
   }
     
-    getResults(keyword:string) {
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/x-www-form-urlencoded');
-        const httpOptions = {
-            headers: headers,
-            withCredentials: false,
-        };
-        return this.http.post("http://127.0.0.1/dietary/ajax_autocomplete_ingredient_client",'keyword='+keyword,httpOptions)
-          .pipe(
-            map(
-                result =>
-                {
-                  return result.json()
-                    .filter(item => true )
-        }));
-    }
+  getResults(keyword:string) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    const httpOptions = {
+        headers: headers,
+        withCredentials: false,
+    };
+    return this.http.post("http://127.0.0.1/dietary/ajax_autocomplete_ingredient_client",'keyword='+keyword,httpOptions)
+      .pipe(
+        map(
+            result =>
+            {
+              return result.json()
+                .filter(item => true )
+    }));
+  }
 }

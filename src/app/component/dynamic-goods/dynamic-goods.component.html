@@ -9,6 +9,10 @@
             <ion-label stacked>營養品名</ion-label>
             <ion-input type="text" class="input-text" [value]="item.name" (ionBlur)="updateGoodsName(i,$event)" placeholder="請填寫" required></ion-input>
         </ion-item>
+        <ion-item class="item-accordion" [class.item-hide]="!item.show">
+            <ion-label stacked>每一份數量</ion-label>
+            <ion-input type="text" class="input-text" [value]="item.amount" (ionBlur)="numberCheckAmount($event,i)" placeholder="請填寫" required></ion-input>
+        </ion-item>
         <div *ngFor="let nutrition of item.nutritions; let idx = index" >
             <ion-item class="nutrition-header item-accordion" [class.item-hide]="!item.show">
                 成分 {{idx+1}}
@@ -20,7 +24,7 @@
             </ion-item>
             <ion-item class="item-accordion" [class.item-hide]="!item.show">
                 <ion-label stacked>劑量</ion-label>
-                <ion-input type="text" class="input-text" [value]="nutrition.detail.dose" (ionBlur)="numberCheck($event,i,idx)" placeholder="請填寫" (ionInput)="updateDose(i, idx, $event)" required></ion-input>
+                <ion-input type="text" class="input-text" [value]="nutrition.detail.dose" (ionBlur)="numberCheckDose($event,i,idx)" placeholder="請填寫" (ionInput)="updateDose(i, idx, $event)" required></ion-input>
             </ion-item>
             <ion-item class="item-accordion" [class.item-hide]="!item.show">
                 <ion-label>單位</ion-label>

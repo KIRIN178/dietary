@@ -103,7 +103,20 @@ export class DynamicGoodsComponent {
 
     await alert.present();
   }
-  numberCheck(event, i, idx) {
+  numberCheckAmount(event, i) {
+      if(event.target.value === null)
+          event.target.value = '';
+      let amount;
+      if(event.target.value.replace(/\D/g,'') == '') {
+          amount = null;
+      } else {
+          amount = parseFloat(event.target.value.replace(/[^0-9.]/g,''));
+      }
+      this.goods[i].amount = amount;
+      this.form = this.gcs.toFormGroup(this.goods);
+      this.formChange.emit(this.form);
+  }
+  numberCheckDose(event, i, idx) {
       if(event.target.value === null)
           event.target.value = '';
       let dose;

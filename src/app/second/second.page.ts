@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { NavController, LoadingController } from '@ionic/angular';
 import { FormGroup } from '@angular/forms';
-import { first, last, map, reduce, find, skipWhile } from 'rxjs/operators';
 
+import { first, last, map, reduce, find, skipWhile } from 'rxjs/operators';
 import { injectStyles } from 'shadow-dom-inject-styles';
 
 import { GoodsService } from "../services/goods/goods.service";

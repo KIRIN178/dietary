@@ -10,6 +10,7 @@ export class GoodsService {
   addGoods() {
       return new Goods({
           name: '',
+          amount: null,
           nutritions: [{
               name: '',
               detail: {

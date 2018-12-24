@@ -14,6 +14,7 @@ export class GoodsControlService {
       let group: any = [];
       goods.forEach((item, i) => {
           group[i] = new FormControl(item.name || '', Validators.required);
+          group[String(i)+'-amount'] = new FormControl(item.amount || '', Validators.required);
           item.nutritions.forEach((nutrition, idx) => {
               group[String(i) + '-' + String(idx) + '-name'] = new FormControl(nutrition.name || '', Validators.required);
               group[String(i) + '-' + String(idx) + '-dose'] = new FormControl(nutrition.detail.dose || '', Validators.required);

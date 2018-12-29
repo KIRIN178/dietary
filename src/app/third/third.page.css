@@ -1,0 +1,30 @@
+.slash {
+  position: relative;
+  height: 40px;
+  white-space: nowrap;
+  box-sizing: border-box;
+  background: linear-gradient(19deg, transparent 49.5%, #aaa 49.5%, transparent 50.5%, transparent 50.5%); }
+
+.block {
+  margin-top: 16px !important; }
+
+.danger {
+  color: red; }
+
+.quantity {
+  max-width: 60px;
+  margin: 0 auto; }
+
+.vcenter {
+  vertical-align: middle; }
+
+.table-bordered thead {
+  border: 1px solid #ddd !important;
+  border-bottom-width: 4px !important; }
+
+tr.rda_ai, tr.ul, tr.suggestion {
+  border-top: 4px solid #ddd; }
+
+th {
+  padding: 0 !important;
+  text-align: center; }

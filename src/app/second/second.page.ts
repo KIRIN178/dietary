@@ -30,7 +30,9 @@ export class SecondPage implements OnInit {
 
   constructor(public navCtrl: NavController, private data: ShareService, private gs: GoodsService, private el: ElementRef, private gcs: GoodsControlService) {
       //alert(data.param["user"].name);
-      
+      // @ts-ignore
+      if(this.navCtrl.stack.length == 0)
+          window.location.href = "/home";
   }
   loadScript() {
       /*let node = document.createElement('script');

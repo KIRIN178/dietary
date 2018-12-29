@@ -19,16 +19,15 @@ export class SuggestionService {
             headers: headers,
             withCredentials: false,
         };
-        console.log(data);
-        console.log(JSON.stringify(data["user"]));
-        console.log(encodeURIComponent(JSON.stringify(data["user"])));
+        //console.log(data);
+        //console.log(JSON.stringify(data["user"]));
+        //console.log(encodeURIComponent(JSON.stringify(data["user"])));
         return this.http.post("http://127.0.0.1/dietary/ajax_get_suggestion_result",'goods='+encodeURIComponent(JSON.stringify(data["goods"]))+'&user='+encodeURIComponent(JSON.stringify(data["user"])),httpOptions)
           .pipe(
             map(
                 result =>
                 {
-                  return result.json()
-                    .filter(item => true )
+                  return result.json();
         }));
     }
     formData(myFormData){

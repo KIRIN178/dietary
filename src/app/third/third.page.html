@@ -6,26 +6,106 @@
 </ion-header>
 
 <ion-content padding>
-    <table class="table table-striped table-bordered">
-        <thead>
-		  <tr class="no-border">
-			  <th colspan="1" rowspan="2" class="text-center no-border vcenter slash">
-                  <div class="block">成份</div>
-                  <div class="block">營養品</div>
-                  <div>每份數量</div>
-              </th>
-			  <th colspan="1" rowspan="2" class="text-center no-border vcenter">服用份數</th>
-              <th colspan="1" rowspan="2" class="text-center no-border vcenter">服用數量</th>
+    <div *ngFor='let item of name_base; let i = index; let even = even;'>
+        <table *ngIf="even" class="table table-striped table-bordered">
+            <thead>
+              <tr class="no-border">
+                  <th colspan="1" rowspan="2" class="text-center no-border vcenter slash">
+                      <div class="block">成份</div>
+                      <div class="block">營養品</div>
+                      <div>每份數量</div>
+                  </th>
+                  <th colspan="1" rowspan="2" class="text-center no-border vcenter">服用份數</th>
+                  <th colspan="1" rowspan="2" class="text-center no-border vcenter">服用數量</th>
 
-			  <th colspan="1" rowspan="2">Vitamin C</th>
-              <th colspan="1" rowspan="1">Vitamin E</th>
-              
-		  </tr>
-		  <tr class="no-border">
-          
-			  <th class="no-border text-center vcenter">Vitamin E(N)</th>
-          
-		  </tr>
-		</thead>
-    </table>
+                  <th [attr.colspan]="calColspan(i)" [attr.rowspan]="rowspan[i]" class="vcenter">{{name_categ[i]}}</th>
+                  <th colspan="1" [hidden]="i+2>name_base.length || calColspan(i) == 2" [attr.rowspan]="rowspan[i+1]" class="vcenter">{{name_categ[i+1]}}</th>
+              </tr>
+              <tr class="no-border">
+                  <th [hidden]="name_categ[i]==name_base[i]" class="no-border text-center vcenter">{{name_base[i]}}</th>
+                  <th [hidden]="name_categ[i+1]==name_base[i+1] || i+2>name_base.length" class="no-border text-center vcenter">{{name_base[i+1]}}</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor='let goods of name_goods; let c = index;' class="goods">
+                    <td class="vcenter">
+                        <div>{{name_goods[c]}}</div>
+                        <div><small>{{amount[c]}}粒(匙)</small></div>
+                    </td>
+                    <td class="vcenter"><ion-input type="text" [(ngModel)]="quantity[c]" class="form-control text-center number quantity padding-0" (ionInput)="numberCheck($event,i)"></ion-input></td>
+                    <td class="vcenter text-center"><span class="amount">{{quantity[c] * amount[c]}}</span> 粒(匙)</td>
+                    <td class="vcenter text-center">
+                        <div *ngIf="getTemp(c)"></div>
+                        <div *ngFor='let sub of temp;'>
+                            <div *ngIf="name_base[i]==name_sub[sub]">
+                                    <span [hidden]="sub==name_base[i]">{{sub}}:</span>
+                                    <span class="quantity">{{quantity[c] * amount[c]}}</span> x <span class="dose">{{goods_detail[c][sub]["dose"]}}</span><span class="unit" [class.danger]="checkUnit(i,c,sub)"> {{goods_detail[c][sub]["unit"]}}</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td [hidden]="i+2>name_base.length" class="vcenter text-center">
+                        <div *ngFor='let sub of temp;'>
+                            <div *ngIf="name_base[i+1]==name_sub[sub]">
+                                <span [hidden]="sub==name_base[i+1]">{{sub}}:</span>
+                                <span class="quantity">{{quantity[c] * amount[c]}}</span> x <span class="dose">{{goods_detail[c][sub]["dose"]}}</span><span class="unit" [class.danger]="checkUnit(i,c,sub)"> {{goods_detail[c][sub]["unit"]}}</span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="rda_ai">
+                    <td colspan="3" class="text-center font-weight-bold"><small>服用的每日建議攝取量/足夠攝取量</small></td>
+                    <td [class.danger]="calc_taking_rda_ai(i) > rda_ai[i]" class="text-center">
+                        <span class="dose">{{calc_taking_rda_ai(i)}}</span>
+                        <span [hidden]="!checkUnitFinal(i)" class="unit"> {{unit_ingredient[i]}}</span>
+                        <span [hidden]="checkUnitFinal(i)">單位錯誤，無法換算</span>
+                    </td>
+                    <td [class.danger]="calc_taking_rda_ai(i+1) > rda_ai[i+1]" [hidden]="i+2>name_base.length" class="text-center">
+                        <span class="dose">{{calc_taking_rda_ai(i+1)}}</span>
+                        <span [hidden]="!checkUnitFinal(i+1)" class="unit"> {{unit_ingredient[i+1]}}</span>
+                        <span [hidden]="checkUnitFinal(i+1)">單位錯誤，無法換算</span>
+                    </td>
+                </tr>
+                <tr class="suggest_rda_ai">
+                    <td colspan="3" class="text-center font-weight-bold"><small>您的每日建議攝取量/足夠攝取量</small></td>
+                    <td class="text-center">
+                        <span class="dose">{{rda_ai[i]}}</span><span [hidden]="rda_ai[i]===null" class="unit"> {{unit_ingredient[i]}}</span>
+                        <span *ngIf="rda_ai[i]===null">無資料</span>
+                    </td>
+                    <td [hidden]="i+2>name_base.length" class="text-center">
+                        <span class="dose">{{rda_ai[i+1]}}</span> <span [hidden]="rda_ai[i+1]===null" class="unit"> {{unit_ingredient[i+1]}}</span>
+                        <span *ngIf="rda_ai[i+1]===null">無資料</span>
+                    </td>
+                </tr>
+                <tr class="ul">
+                    <td colspan="3" class="text-center font-weight-bold">服用的每日上限攝取量</td>
+                    <td [class.danger]="calc_taking_ul(i) > ul[i] && ul[i] !== null" class="text-center">
+                        <span class="dose">{{calc_taking_ul(i)}}</span>
+                        <span [hidden]="!checkUnitFinal(i)" class="unit"> {{unit_ingredient[i]}}</span>
+                        <span [hidden]="checkUnitFinal(i)">單位錯誤，無法換算</span>
+                    </td>
+                    <td [class.danger]="calc_taking_ul(i+1) > ul[i+1] && ul[i+1] !== null" [hidden]="i+2>name_base.length" class="text-center">
+                        <span class="dose">{{calc_taking_ul(i+1)}}</span>
+                        <span [hidden]="!checkUnitFinal(i+1)" class="unit"> {{unit_ingredient[i+1]}}</span>
+                        <span [hidden]="checkUnitFinal(i+1)">單位錯誤，無法換算</span>
+                    </td>
+                </tr>
+                <tr class="suggest_ul">
+                    <td colspan="3" class="text-center font-weight-bold">您的每日上限攝取量</td>
+                    <td class="text-center">
+                        <span class="dose">{{ul[i]}}</span> <span [hidden]="ul[i]===null" class="unit"> {{unit_ingredient[i]}}</span>
+                        <span *ngIf="ul[i]===null">無資料</span>
+                    </td>
+                    <td [hidden]="i+2>name_base.length" class="text-center">
+                        <span class="dose">{{ul[i+1]}}</span> <span [hidden]="ul[i+1]===null" class="unit"> {{unit_ingredient[i+1]}}</span>
+                        <span *ngIf="ul[i+1]===null">無資料</span>
+                    </td>
+                </tr>
+                <tr class="suggestion">
+                    <td colspan="3" class="text-center font-weight-bold">評估建議</td>
+                    <td class="text-center"></td>
+                    <td [hidden]="i+2>name_base.length" class="text-center"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </ion-content>

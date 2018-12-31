@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { SecondPage } from './second/second.page';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },

@@ -15,7 +15,7 @@ import { SuggestionService } from "../services/data/suggestion.service";
 export class ThirdPage implements OnInit {
     private name_goods = Array();
     private name_categ = Array();
-    private name_base = Array();
+    name_base = Array();
     private name_sub = Array();
     private rowspan = Array();
     private quantity = Array();
@@ -178,15 +178,15 @@ export class ThirdPage implements OnInit {
                     res += _this.goods_detail[c][sub]["dose"] * _this.transfer_rda_ai[sub]["IU"];
                 } else if(_this.goods_detail[c][sub]["unit"] == 'mg') {
                     if(_this.transfer_rda_ai[sub]["mg"] === null) {
-                        res += _this.goods_detail[c][sub]["dose"] * 100 * _this.transfer_rda_ai[sub]["mcg"];
+                        res += _this.quantity[c] * _this.goods_detail[c][sub]["dose"] * 100 * _this.transfer_rda_ai[sub]["mcg"];
                     } else {
-                        res += _this.goods_detail[c][sub]["dose"] * _this.transfer_rda_ai[sub]["mg"];
+                        res += _this.quantity[c] * _this.goods_detail[c][sub]["dose"] * _this.transfer_rda_ai[sub]["mg"];
                     }
                 } else {
                     if(_this.transfer_rda_ai[sub]["mcg"] === null) {
-                        res += _this.goods_detail[c][sub]["dose"] / 100 * _this.transfer_rda_ai[sub]["mg"];
+                        res += _this.quantity[c] * _this.goods_detail[c][sub]["dose"] / 100 * _this.transfer_rda_ai[sub]["mg"];
                     } else {
-                        res += _this.goods_detail[c][sub]["dose"] * _this.transfer_rda_ai[sub]["mcg"];
+                        res += _this.quantity[c] * _this.goods_detail[c][sub]["dose"] * _this.transfer_rda_ai[sub]["mcg"];
                     }
                 }
             })
@@ -213,15 +213,15 @@ export class ThirdPage implements OnInit {
                     res += _this.goods_detail[c][sub]["dose"] * _this.transfer_ul[sub]["IU"];
                 } else if(_this.goods_detail[c][sub]["unit"] == 'mg') {
                     if(_this.transfer_ul[sub]["mg"] === null) {
-                        res += _this.goods_detail[c][sub]["dose"] * 100 * _this.transfer_ul[sub]["mcg"];
+                        res += _this.quantity[c] * _this.goods_detail[c][sub]["dose"] * 100 * _this.transfer_ul[sub]["mcg"];
                     } else {
-                        res += _this.goods_detail[c][sub]["dose"] * _this.transfer_ul[sub]["mg"];
+                        res += _this.quantity[c] * _this.goods_detail[c][sub]["dose"] * _this.transfer_ul[sub]["mg"];
                     }
                 } else {
                     if(_this.transfer_ul[sub]["mcg"] === null) {
-                        res += _this.goods_detail[c][sub]["dose"] / 100 * _this.transfer_ul[sub]["mg"];
+                        res += _this.quantity[c] * _this.goods_detail[c][sub]["dose"] / 100 * _this.transfer_ul[sub]["mg"];
                     } else {
-                        res += _this.goods_detail[c][sub]["dose"] * _this.transfer_ul[sub]["mcg"];
+                        res += _this.quantity[c] * _this.goods_detail[c][sub]["dose"] * _this.transfer_ul[sub]["mcg"];
                     }
                 }
             })
@@ -239,8 +239,12 @@ export class ThirdPage implements OnInit {
         if(event.target.value.replace(/\D/g,'') == '') {
             amount = null;
         } else {
-            amount = parseFloat(event.target.value.replace(/[^0-9.]/g,''));
+            amount = (event.target.value.replace(/[^0-9.]/g,''));
         }
+        var re = new RegExp(/^[0-9]+[.]?([0-9]{0,})?$/i);
+        if(!re.test(amount))
+            amount = 1;
+        amount = parseFloat(amount);
         event.target.value = amount;
     }
     finalizeInitTemplate() {

@@ -8,7 +8,7 @@ import { ShareService } from "../services/data/share.service";
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-    private users = {
+    users = {
         name: '',
         birthday: '',
         gender: '',

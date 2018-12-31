@@ -20,7 +20,8 @@
             </ion-item>
             <ion-item class="auto-complete item-accordion" [class.item-hide]="!item.show">
                 <ion-label class="nutrition-name" stacked>成分名</ion-label>
-                <ion-auto-complete [dataProvider]="completeTestService" (ionAutoInput)="updateNutritionName(i,idx)" (itemSelected)="updateNutritionName(i,idx)"></ion-auto-complete>
+                <ion-auto-complete [dataProvider]="completeTestService" (itemClicked)="selectInputMethod($event, i, idx)" (ionAutoInput)="updateNutritionName(i,idx)" (itemSelected)="updateNutritionName(i,idx)"></ion-auto-complete>
+                <ion-button fill="outline" slot="end" color="dark" (click)="clickNutrition()">選擇</ion-button>
             </ion-item>
             <ion-item class="item-accordion" [class.item-hide]="!item.show">
                 <ion-label stacked>劑量</ion-label>

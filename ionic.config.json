@@ -1,5 +1,7 @@
 {
   "name": "tmp",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

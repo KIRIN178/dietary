@@ -14,6 +14,7 @@ import { AutoCompleteModule } from 'ionic2-auto-complete';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { DynamicGoodsComponent } from './component/dynamic-goods/dynamic-goods.component';
+import { GoodsNameSelectService } from './services/goods/goods-name-select.service'
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,6 +22,7 @@ import { DynamicGoodsComponent } from './component/dynamic-goods/dynamic-goods.c
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule, ReactiveFormsModule, AutoCompleteModule, HttpModule, HttpClientModule],
   providers: [
     StatusBar,
+    GoodsNameSelectService,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

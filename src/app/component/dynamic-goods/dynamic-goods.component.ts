@@ -11,6 +11,7 @@ import { Goods } from "../../class/goods";
 import { GoodsService } from "../../services/goods/goods.service";
 import { GoodsControlService } from "../../services/goods/goods-control.service";
 import { CompleteTestService } from '../../services/goods/complete-test.service';
+import { GoodsNameSelectService } from "../../services/goods/goods-name-select.service";
 
 @Component({
   selector: 'app-dynamic-goods',
@@ -25,7 +26,7 @@ export class DynamicGoodsComponent {
     @ViewChildren(AutoCompleteComponent) searchbars: QueryList<AutoCompleteComponent>;
     loadingModal: any;
 
-    constructor(private gcs: GoodsControlService, public completeTestService: CompleteTestService, private el: ElementRef, private gs: GoodsService, private alertController:AlertController, public loadingController: LoadingController) {
+    constructor(private gcs: GoodsControlService, public completeTestService: CompleteTestService, private el: ElementRef, private gs: GoodsService, private alertController:AlertController, public loadingController: LoadingController, private gns: GoodsNameSelectService) {
 
     }
     
@@ -54,11 +55,16 @@ export class DynamicGoodsComponent {
         this.form = this.gcs.toFormGroup(this.goods);
         this.formChange.emit(this.form);
     }
-    async clickNutrition() {
-        const loading = await this.loadingController.create({
-            message: '連接伺服器中',
-        });
-        await loading.present();
+    clickNutrition() {
+        //const loading = await this.loadingController.create({
+            //message: '連接伺服器中',
+        //});
+        //await loading.present();
+        let aaa = this.presentLoading();
+        console.log(aaa)
+        let _this = this;
+        this.gns.getResults().subscribe(result=>{console.log(result);_this.loadingController.dismiss('loading')});
+        //this.completeTestService.getResults('a');
     }
     async deleteGoods(i) {
         const alert = await this.alertController.create({
@@ -108,9 +114,11 @@ export class DynamicGoodsComponent {
     }
     async presentLoading() {
         const loading = await this.loadingController.create({
+            id: 'loading',
             message: 'Hellooo',
         });
-        this.loadingModal = loading;
+        //this.loadingModal = loading;
+        return await loading.present();
     }
     async selectInputMethod(event, i, idx) {
         console.log(document.activeElement)

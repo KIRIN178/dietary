@@ -11,3 +11,7 @@
 @import '~@ionic/angular/css/flex-utils.css';
 
 @import "../node_modules/ionic2-auto-complete/auto-complete";
+ion-app {
+    max-width: 375px;
+    margin: 0 auto;
+}

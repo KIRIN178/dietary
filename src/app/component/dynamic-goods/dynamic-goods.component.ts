@@ -55,20 +55,23 @@ export class DynamicGoodsComponent {
         this.form = this.gcs.toFormGroup(this.goods);
         this.formChange.emit(this.form);
     }
-    clickNutrition() {
-        //const loading = await this.loadingController.create({
-            //message: '連接伺服器中',
-        //});
-        //await loading.present();
-        let aaa = this.presentLoading();
-        console.log(aaa)
+    clickNutrition(i, idx) {
+        this.presentLoading();
+        //console.log(aaa)
         let _this = this;
-        this.gns.getResults().subscribe(result=>{console.log(result);_this.loadingController.dismiss('loading')});
+        this.gns.getResults().subscribe(result=>{
+            //console.log(result);
+            setTimeout(()=>{
+                _this.loadingController.dismiss('loading');
+                _this.showSelectAlert(result.list, i, idx);
+            }, 500)
+        });
         //this.completeTestService.getResults('a');
     }
     async deleteGoods(i) {
         const alert = await this.alertController.create({
             header: '刪除確認',
+            mode: 'ios',
             message: '您確定要刪除營養品'+String(i+1)+'嗎?',
             buttons: [
                 {
@@ -92,6 +95,7 @@ export class DynamicGoodsComponent {
     async deleteNutrition(i, idx) {
         const alert = await this.alertController.create({
             header: '刪除確認',
+            mode: 'ios',
             message: '您確定要刪除成分'+String(idx+1)+'嗎?',
             buttons: [
                 {
@@ -115,7 +119,7 @@ export class DynamicGoodsComponent {
     async presentLoading() {
         const loading = await this.loadingController.create({
             id: 'loading',
-            message: 'Hellooo',
+            message: '連接伺服器中',
         });
         //this.loadingModal = loading;
         return await loading.present();
@@ -162,6 +166,37 @@ export class DynamicGoodsComponent {
             }
           ]
         });
+        await alert.present();
+    }
+    async showSelectAlert(list, i, idx) {
+        console.log(list)
+        let _this = this;
+        const alert = await this.alertController.create({
+          header: '選擇成分',
+            mode: 'ios',
+          inputs: list,
+          buttons: [
+            {
+              text: 'Cancel',
+              role: 'cancel',
+              cssClass: 'secondary',
+              handler: () => {
+                //console.log('Confirm Cancel');
+              }
+            }, {
+              text: 'Ok',
+              handler: (response) => {
+                  //console.log(response);
+                  let count = _this.countViewChildren(i, idx);
+                  _this.searchbars.toArray()[count].setValue(response);
+                  _this.goods[i].nutritions[idx].name = response;
+                  _this.form = _this.gcs.toFormGroup(_this.goods);
+                  _this.formChange.emit(_this.form);
+              }
+            }
+          ]
+        });
+
         await alert.present();
     }
     numberCheckAmount(event, i) {

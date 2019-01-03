@@ -21,7 +21,7 @@
             <ion-item class="auto-complete item-accordion" [class.item-hide]="!item.show">
                 <ion-label class="nutrition-name" stacked>成分名</ion-label>
                 <ion-auto-complete [dataProvider]="completeTestService" (itemClicked)="selectInputMethod($event, i, idx)" (ionAutoInput)="updateNutritionName(i,idx)" (itemSelected)="updateNutritionName(i,idx)"></ion-auto-complete>
-                <ion-button fill="outline" slot="end" color="dark" (click)="clickNutrition()">選擇</ion-button>
+                <ion-button fill="outline" slot="end" color="dark" (click)="clickNutrition(i,idx)">選擇</ion-button>
             </ion-item>
             <ion-item class="item-accordion" [class.item-hide]="!item.show">
                 <ion-label stacked>劑量</ion-label>
@@ -29,7 +29,7 @@
             </ion-item>
             <ion-item class="item-accordion" [class.item-hide]="!item.show">
                 <ion-label>單位</ion-label>
-                <ion-select [value]="nutrition.detail.unit" placeholder="請選擇" ok-text="確認" cancel-text="取消" (ionChange)="updateUnit(i, idx, $event)">
+                <ion-select [value]="nutrition.detail.unit" [interfaceOptions]="{ mode: 'md' }" placeholder="請選擇" okText="確認" cancelText="取消" (ionChange)="updateUnit(i, idx, $event)">
                     <ion-select-option value="mg">毫克(mg)</ion-select-option>
                     <ion-select-option value="mcg">微克(mcg)</ion-select-option>
                     <ion-select-option value="IU">國際單位(IU)</ion-select-option>

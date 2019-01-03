@@ -39,6 +39,7 @@ export class ThirdPage implements OnInit {
             return;
         }
         let _this = this;
+        this.presentLoading();
         this.data.getParam().pipe(first()).subscribe(val=>{
             _this.ss.getSuggestion(val).subscribe(response=>{
                 //console.log(response.col);
@@ -107,7 +108,10 @@ export class ThirdPage implements OnInit {
                     }
                     _this.goods_detail.push(temp);
                 }
-                //console.log(_this.name_categ);
+                //console.log(_this.rda_ai);
+                setTimeout(()=>{
+                    _this.loadingController.dismiss('loading');
+                }, 500)
             });
         });
     }
@@ -170,23 +174,26 @@ export class ThirdPage implements OnInit {
         if(!this.checkUnitFinal(i)) {
             return '';
         }
+        //console.log(this.goods_detail)
         let _this = this;
         let res = 0;
         this.name_goods.forEach(function(value, c) {
             Object.keys(_this.goods_detail[c]).forEach(function(sub, index) {
-                if(_this.goods_detail[c][sub]["unit"] == 'IU') {
-                    res += _this.goods_detail[c][sub]["dose"] * _this.transfer_rda_ai[sub]["IU"];
-                } else if(_this.goods_detail[c][sub]["unit"] == 'mg') {
-                    if(_this.transfer_rda_ai[sub]["mg"] === null) {
-                        res += _this.quantity[c] * _this.goods_detail[c][sub]["dose"] * 100 * _this.transfer_rda_ai[sub]["mcg"];
+                if(_this.name_base[i] == _this.name_sub[sub]) {
+                    if(_this.goods_detail[c][sub]["unit"] == 'IU') {
+                        res += _this.goods_detail[c][sub]["dose"] * _this.transfer_rda_ai[sub]["IU"];
+                    } else if(_this.goods_detail[c][sub]["unit"] == 'mg') {
+                        if(_this.transfer_rda_ai[sub]["mg"] === null) {
+                            res += _this.quantity[c] * _this.goods_detail[c][sub]["dose"] * 100 * _this.transfer_rda_ai[sub]["mcg"];
+                        } else {
+                            res += _this.quantity[c] * _this.goods_detail[c][sub]["dose"] * _this.transfer_rda_ai[sub]["mg"];
+                        }
                     } else {
-                        res += _this.quantity[c] * _this.goods_detail[c][sub]["dose"] * _this.transfer_rda_ai[sub]["mg"];
-                    }
-                } else {
-                    if(_this.transfer_rda_ai[sub]["mcg"] === null) {
-                        res += _this.quantity[c] * _this.goods_detail[c][sub]["dose"] / 100 * _this.transfer_rda_ai[sub]["mg"];
-                    } else {
-                        res += _this.quantity[c] * _this.goods_detail[c][sub]["dose"] * _this.transfer_rda_ai[sub]["mcg"];
+                        if(_this.transfer_rda_ai[sub]["mcg"] === null) {
+                            res += _this.quantity[c] * _this.goods_detail[c][sub]["dose"] / 100 * _this.transfer_rda_ai[sub]["mg"];
+                        } else {
+                            res += _this.quantity[c] * _this.goods_detail[c][sub]["dose"] * _this.transfer_rda_ai[sub]["mcg"];
+                        }
                     }
                 }
             })
@@ -209,19 +216,21 @@ export class ThirdPage implements OnInit {
         let res = 0;
         this.name_goods.forEach(function(value, c) {
             Object.keys(_this.goods_detail[c]).forEach(function(sub, index) {
-                if(_this.goods_detail[c][sub]["unit"] == 'IU') {
-                    res += _this.goods_detail[c][sub]["dose"] * _this.transfer_ul[sub]["IU"];
-                } else if(_this.goods_detail[c][sub]["unit"] == 'mg') {
-                    if(_this.transfer_ul[sub]["mg"] === null) {
-                        res += _this.quantity[c] * _this.goods_detail[c][sub]["dose"] * 100 * _this.transfer_ul[sub]["mcg"];
+                if(_this.name_base[i] == _this.name_sub[sub]) {
+                    if(_this.goods_detail[c][sub]["unit"] == 'IU') {
+                        res += _this.goods_detail[c][sub]["dose"] * _this.transfer_ul[sub]["IU"];
+                    } else if(_this.goods_detail[c][sub]["unit"] == 'mg') {
+                        if(_this.transfer_ul[sub]["mg"] === null) {
+                            res += _this.quantity[c] * _this.goods_detail[c][sub]["dose"] * 100 * _this.transfer_ul[sub]["mcg"];
+                        } else {
+                            res += _this.quantity[c] * _this.goods_detail[c][sub]["dose"] * _this.transfer_ul[sub]["mg"];
+                        }
                     } else {
-                        res += _this.quantity[c] * _this.goods_detail[c][sub]["dose"] * _this.transfer_ul[sub]["mg"];
-                    }
-                } else {
-                    if(_this.transfer_ul[sub]["mcg"] === null) {
-                        res += _this.quantity[c] * _this.goods_detail[c][sub]["dose"] / 100 * _this.transfer_ul[sub]["mg"];
-                    } else {
-                        res += _this.quantity[c] * _this.goods_detail[c][sub]["dose"] * _this.transfer_ul[sub]["mcg"];
+                        if(_this.transfer_ul[sub]["mcg"] === null) {
+                            res += _this.quantity[c] * _this.goods_detail[c][sub]["dose"] / 100 * _this.transfer_ul[sub]["mg"];
+                        } else {
+                            res += _this.quantity[c] * _this.goods_detail[c][sub]["dose"] * _this.transfer_ul[sub]["mcg"];
+                        }
                     }
                 }
             })
@@ -252,7 +261,7 @@ export class ThirdPage implements OnInit {
         const toolbar = (this.el.nativeElement.querySelectorAll('ion-input') as HTMLElement);
         const styles = '.native-input {padding-left: 0 !important;}';
         let _this = this;
-        console.log(toolbar)
+        //console.log(toolbar)
         // @ts-ignore
         toolbar.forEach(function(value, c) {
             injectStyles(value, '.native-input', styles);
@@ -261,7 +270,7 @@ export class ThirdPage implements OnInit {
     }
     async presentLoading() {
         const loading = await this.loadingController.create({
-            message: 'Hellooo',
+            message: '連接伺服器中',
         });
         return await loading.present();
     }

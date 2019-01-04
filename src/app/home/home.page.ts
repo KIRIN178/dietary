@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, LoadingController } from '@ionic/angular';
 import { ShareService } from "../services/data/share.service";
 
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -28,7 +29,6 @@ export class HomePage {
 			this.users.is_milk = localStorage.is_milk;
             this.users.is_remember = true;
 		}
-		
     }
     ngOnInit() {
     }

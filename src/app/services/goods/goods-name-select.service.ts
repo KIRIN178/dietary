@@ -1,4 +1,4 @@
-import { Injectable, ViewChild } from '@angular/core';
+import { Injectable, ViewChild, isDevMode } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { HttpClient, HttpHeaders } from  '@angular/common/http';
 
@@ -12,7 +12,13 @@ export class GoodsNameSelectService {
     constructor(private http:Http) { }
     
     getResults() {
-        return this.http.get("http://127.0.0.1/dietary/ajax_autocomplete_ingredient_client_select").pipe(
+        let url;
+        if(isDevMode()) {
+            url = '127.0.0.1';
+        } else {
+            url = 'dietary.cc';
+        }
+        return this.http.get("http://" + url + "/dietary/ajax_autocomplete_ingredient_client_select").pipe(
       map(
         result =>
         {

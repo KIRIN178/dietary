@@ -1,4 +1,4 @@
-import { Injectable, ViewChild } from '@angular/core';
+import { Injectable, ViewChild, isDevMode } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { HttpClient, HttpHeaders } from  '@angular/common/http';
 import { map } from 'rxjs/operators';
@@ -21,7 +21,13 @@ export class CompleteTestService implements AutoCompleteService {
         headers: headers,
         withCredentials: false,
     };
-    return this.http.post("http://127.0.0.1/dietary/ajax_autocomplete_ingredient_client",'keyword='+keyword,httpOptions)
+    let url;
+    if(isDevMode()) {
+        url = '127.0.0.1';
+    } else {
+        url = 'dietary.cc';
+    }
+    return this.http.post("http://" + url + "/dietary/ajax_autocomplete_ingredient_client",'keyword='+keyword,httpOptions)
       .pipe(
         map(
             result =>

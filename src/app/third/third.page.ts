@@ -38,8 +38,10 @@ export class ThirdPage implements OnInit {
             //window.location.href = "/home";
             //return;
         //}
-        if(this.navCtrl.lastNavId == 1)
+        if(this.navCtrl.lastNavId == 1) {
             window.location.href = "/home";
+            return;
+        }
         let _this = this;
         this.presentLoading();
         this.data.getParam().pipe(first()).subscribe(val=>{
@@ -239,6 +241,26 @@ export class ThirdPage implements OnInit {
         })
         return res;
     }
+    detectOverdose() {
+        let _this = this;
+        let res = false;
+        this.name_base.forEach(function(value, i) {
+            if((_this.calc_taking_rda_ai(i) > _this.rda_ai[i] && _this.rda_ai[i] !== null) || (_this.calc_taking_rda_ai(i) > _this.ul[i] && _this.ul[i] !== null)) {
+                res = true;
+            }
+        })
+        return res;
+    }
+    detectSufficientdose() {
+        let _this = this;
+        let res = false;
+        this.name_base.forEach(function(value, i) {
+            if(_this.calc_taking_rda_ai(i) < _this.rda_ai[i]*0.8 && _this.rda_ai[i] !== null) {
+                res = true;
+            }
+        })
+        return res;
+    }
     getTemp(c) {
         this.temp = Object.keys(this.goods_detail[c]);
         return false;
@@ -256,7 +278,9 @@ export class ThirdPage implements OnInit {
         if(!re.test(amount))
             amount = 1;
         amount = parseFloat(amount);
-        event.target.value = amount;
+        console.log(amount)
+        if(amount == 1 && event.target.value != '1.')
+            event.target.value = amount;
     }
     finalizeInitTemplate() {
         // @ts-ignore

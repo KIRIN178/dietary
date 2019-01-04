@@ -54,12 +54,12 @@
                 </tr>
                 <tr class="rda_ai">
                     <td colspan="3" class="text-center font-weight-bold"><small>服用的每日建議攝取量/足夠攝取量</small></td>
-                    <td [class.danger]="calc_taking_rda_ai(i,c) > rda_ai[i] && rda_ai[i] !== null" class="text-center">
+                    <td [class.danger]="calc_taking_rda_ai(i) > rda_ai[i] && rda_ai[i] !== null" [class.insufficient]="calc_taking_rda_ai(i) < rda_ai[i]*0.8 && rda_ai[i] !== null" class="text-center vcenter">
                         <span class="dose">{{calc_taking_rda_ai(i)}}</span>
                         <span [hidden]="!checkUnitFinal(i)" class="unit"> {{unit_ingredient[i]}}</span>
                         <span [hidden]="checkUnitFinal(i)">單位錯誤，無法換算</span>
                     </td>
-                    <td [class.danger]="calc_taking_rda_ai(i+1) > rda_ai[i+1] && rda_ai[i+1] !== null" [hidden]="i+2>name_base.length" class="text-center">
+                    <td [class.danger]="calc_taking_rda_ai(i+1) > rda_ai[i+1] && rda_ai[i+1] !== null" [class.insufficient]="calc_taking_rda_ai(i+1) < rda_ai[i+1]*0.8 && rda_ai[i+1] !== null" [hidden]="i+2>name_base.length" class="text-center vcenter">
                         <span class="dose">{{calc_taking_rda_ai(i+1)}}</span>
                         <span [hidden]="!checkUnitFinal(i+1)" class="unit"> {{unit_ingredient[i+1]}}</span>
                         <span [hidden]="checkUnitFinal(i+1)">單位錯誤，無法換算</span>
@@ -67,23 +67,23 @@
                 </tr>
                 <tr class="suggest_rda_ai">
                     <td colspan="3" class="text-center font-weight-bold"><small>您的每日建議攝取量/足夠攝取量</small></td>
-                    <td class="text-center">
+                    <td class="text-center vcenter">
                         <span class="dose">{{rda_ai[i]}}</span><span [hidden]="rda_ai[i]===null" class="unit"> {{unit_ingredient[i]}}</span>
                         <span *ngIf="rda_ai[i]===null">無資料</span>
                     </td>
-                    <td [hidden]="i+2>name_base.length" class="text-center">
+                    <td [hidden]="i+2>name_base.length" class="text-center vcenter">
                         <span class="dose">{{rda_ai[i+1]}}</span> <span [hidden]="rda_ai[i+1]===null" class="unit"> {{unit_ingredient[i+1]}}</span>
                         <span *ngIf="rda_ai[i+1]===null">無資料</span>
                     </td>
                 </tr>
                 <tr class="ul">
                     <td colspan="3" class="text-center font-weight-bold">服用的每日上限攝取量</td>
-                    <td [class.danger]="calc_taking_ul(i) > ul[i] && ul[i] !== null" class="text-center">
+                    <td [class.danger]="calc_taking_ul(i) > ul[i] && ul[i] !== null" class="text-center vcenter">
                         <span class="dose">{{calc_taking_ul(i)}}</span>
                         <span [hidden]="!checkUnitFinal(i)" class="unit"> {{unit_ingredient[i]}}</span>
                         <span [hidden]="checkUnitFinal(i)">單位錯誤，無法換算</span>
                     </td>
-                    <td [class.danger]="calc_taking_ul(i+1) > ul[i+1] && ul[i+1] !== null" [hidden]="i+2>name_base.length" class="text-center">
+                    <td [class.danger]="calc_taking_ul(i+1) > ul[i+1] && ul[i+1] !== null" [hidden]="i+2>name_base.length" class="text-center vcenter">
                         <span class="dose">{{calc_taking_ul(i+1)}}</span>
                         <span [hidden]="!checkUnitFinal(i+1)" class="unit"> {{unit_ingredient[i+1]}}</span>
                         <span [hidden]="checkUnitFinal(i+1)">單位錯誤，無法換算</span>
@@ -91,29 +91,31 @@
                 </tr>
                 <tr class="suggest_ul">
                     <td colspan="3" class="text-center font-weight-bold">您的每日上限攝取量</td>
-                    <td class="text-center">
+                    <td class="text-center vcenter">
                         <span class="dose">{{ul[i]}}</span> <span [hidden]="ul[i]===null" class="unit"> {{unit_ingredient[i]}}</span>
                         <span *ngIf="ul[i]===null">無資料</span>
                     </td>
-                    <td [hidden]="i+2>name_base.length" class="text-center">
+                    <td [hidden]="i+2>name_base.length" class="text-center vcenter">
                         <span class="dose">{{ul[i+1]}}</span> <span [hidden]="ul[i+1]===null" class="unit"> {{unit_ingredient[i+1]}}</span>
                         <span *ngIf="ul[i+1]===null">無資料</span>
                     </td>
                 </tr>
-                <tr class="suggestion">
-                    <td colspan="3" class="text-center font-weight-bold">評估建議</td>
-                    <td class="text-center">
-                        <div *ngIf="(calc_taking_rda_ai(i,c) > rda_ai[i] && rda_ai[i] !== null)||(calc_taking_ul(i) > ul[i] && ul[i] !== null)">有服用過量情形，請盡速與我們的合作藥師作完整免費諮詢，幫您做量身訂作的調整。</div>
-                        <span *ngIf="(calc_taking_rda_ai(i,c)*0.8 < rda_ai[i] && rda_ai[i] !== null)||(calc_taking_ul(i)*0.8 < ul[i] && ul[i] !== null)">服用劑量不足，請盡速與我們的合作藥師作完整免費諮詢，幫您做量身訂作的調整。</span>
-                        <span *ngIf=""></span>
-                    </td>
-                    <td [hidden]="i+2>name_base.length" class="text-center">
-                        <span *ngIf=""></span>
-                        <span *ngIf=""></span>
-                        <span *ngIf=""></span>
-                    </td>
-                </tr>
             </tbody>
         </table>
+    </div>
+    <div>
+        <b>評估建議：</b>
+    </div>
+    <div *ngIf="detectOverdose()">
+        您有某些營養成分服用過量的情形。
+    </div>
+    <div *ngIf="detectSufficientdose()">
+        您有某些營養成分服用劑量不足的情形。
+    </div>
+    <div *ngIf="detectOverdose() || detectSufficientdose()">
+        請盡速聯絡我們的合作藥師，我們將會提供完整的免費諮詢服務，為您做個人化的調整。
+    </div>
+    <div *ngIf="!detectOverdose() && !detectSufficientdose()">
+        您服用的營養品劑量符合標準。
     </div>
 </ion-content>

@@ -54,12 +54,12 @@
                 </tr>
                 <tr class="rda_ai">
                     <td colspan="3" class="text-center font-weight-bold"><small>服用的每日建議攝取量/足夠攝取量</small></td>
-                    <td [class.danger]="calc_taking_rda_ai(i) > rda_ai[i]" class="text-center">
+                    <td [class.danger]="calc_taking_rda_ai(i,c) > rda_ai[i] && rda_ai[i] !== null" class="text-center">
                         <span class="dose">{{calc_taking_rda_ai(i)}}</span>
                         <span [hidden]="!checkUnitFinal(i)" class="unit"> {{unit_ingredient[i]}}</span>
                         <span [hidden]="checkUnitFinal(i)">單位錯誤，無法換算</span>
                     </td>
-                    <td [class.danger]="calc_taking_rda_ai(i+1) > rda_ai[i+1]" [hidden]="i+2>name_base.length" class="text-center">
+                    <td [class.danger]="calc_taking_rda_ai(i+1) > rda_ai[i+1] && rda_ai[i+1] !== null" [hidden]="i+2>name_base.length" class="text-center">
                         <span class="dose">{{calc_taking_rda_ai(i+1)}}</span>
                         <span [hidden]="!checkUnitFinal(i+1)" class="unit"> {{unit_ingredient[i+1]}}</span>
                         <span [hidden]="checkUnitFinal(i+1)">單位錯誤，無法換算</span>
@@ -102,8 +102,16 @@
                 </tr>
                 <tr class="suggestion">
                     <td colspan="3" class="text-center font-weight-bold">評估建議</td>
-                    <td class="text-center"></td>
-                    <td [hidden]="i+2>name_base.length" class="text-center"></td>
+                    <td class="text-center">
+                        <div *ngIf="(calc_taking_rda_ai(i,c) > rda_ai[i] && rda_ai[i] !== null)||(calc_taking_ul(i) > ul[i] && ul[i] !== null)">有服用過量情形，請盡速與我們的合作藥師作完整免費諮詢，幫您做量身訂作的調整。</div>
+                        <span *ngIf="(calc_taking_rda_ai(i,c)*0.8 < rda_ai[i] && rda_ai[i] !== null)||(calc_taking_ul(i)*0.8 < ul[i] && ul[i] !== null)">服用劑量不足，請盡速與我們的合作藥師作完整免費諮詢，幫您做量身訂作的調整。</span>
+                        <span *ngIf=""></span>
+                    </td>
+                    <td [hidden]="i+2>name_base.length" class="text-center">
+                        <span *ngIf=""></span>
+                        <span *ngIf=""></span>
+                        <span *ngIf=""></span>
+                    </td>
                 </tr>
             </tbody>
         </table>

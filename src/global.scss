@@ -11,3 +11,15 @@
 @import '~@ionic/angular/css/flex-utils.css';
 
 @import "../node_modules/ionic2-auto-complete/auto-complete";
+app-home, app-second, app-third {
+    max-width: 384px;
+    margin: 0 auto;
+}
+button[disabled] div {
+    color: red !important;
+}
+.alert-radio-label.sc-ion-alert-ios {
+    text-overflow: inherit;
+    white-space: inherit;
+    overflow: visible;
+}

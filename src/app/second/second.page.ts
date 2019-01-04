@@ -31,7 +31,7 @@ export class SecondPage implements OnInit {
     constructor(public navCtrl: NavController, private data: ShareService, private gs: GoodsService, private el: ElementRef, private gcs: GoodsControlService) {
         //alert(data.param["user"].name);
         // @ts-ignore
-        if(this.navCtrl.stack.length == 0)
+        if(this.navCtrl.lastNavId == 1)
           window.location.href = "/home";
     }
     loadScript() {
@@ -49,12 +49,15 @@ export class SecondPage implements OnInit {
     ngOnInit() {
         this.goods = this.gs.getGoods();
         this.form = this.gcs.toFormGroup(this.goods);
-
     }
     ngAfterViewChecked() {
         //const toolbar = (this.el.nativeElement.querySelector('.test') as HTMLElement);
         //const styles = '.inner-scroll {overflow: visible !important;}';
         //injectStyles(toolbar, '.test', styles);
+        //console.log(document.getElementsByTagName('html')[0])
+        //document.getElementsByTagName('html')[0].attributes[0] = 'plt-desktop ios';
+        //document.getElementsByTagName('html')[0].attributes[0].value = 'plt-desktop ios';
+        //document.getElementsByTagName('html')[0].attributes[1].value = 'ios';
     }
     formChange(event) {
         this.form = event;

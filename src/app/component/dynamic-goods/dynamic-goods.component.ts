@@ -125,7 +125,6 @@ export class DynamicGoodsComponent {
         return await loading.present();
     }
     async showSelectAlert(list, i, idx) {
-        console.log(list)
         let _this = this;
         const alert = await this.alertController.create({
           header: '選擇成分',

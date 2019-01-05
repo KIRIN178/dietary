@@ -27,6 +27,7 @@
     "@types/jquery": "^3.3.27",
     "core-js": "^2.5.4",
     "ionic2-auto-complete": "^1.6.2-alpha",
+    "ionic2-auto-complete-ng5": "^1.0.3-release",
     "jquery": "^3.3.1",
     "rxjs": "~6.3.3",
     "shadow-dom-inject-styles": "^1.0.2",

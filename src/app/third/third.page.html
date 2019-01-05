@@ -103,19 +103,21 @@
             </tbody>
         </table>
     </div>
-    <div>
-        <b>評估建議：</b>
-    </div>
-    <div *ngIf="detectOverdose()">
-        您有某些營養成分服用過量的情形。
-    </div>
-    <div *ngIf="detectSufficientdose()">
-        您有某些營養成分服用劑量不足的情形。
-    </div>
-    <div *ngIf="detectOverdose() || detectSufficientdose()">
-        請盡速聯絡我們的合作藥師，我們將會提供完整的免費諮詢服務，為您做個人化的調整。
-    </div>
-    <div *ngIf="!detectOverdose() && !detectSufficientdose()">
-        您服用的營養品劑量符合標準。
+    <div *ngIf="is_show">
+        <div>
+            <b>評估建議：</b>
+        </div>
+        <div *ngIf="detectOverdose()">
+            您有某些營養成分服用過量的情形。
+        </div>
+        <div *ngIf="detectSufficientdose()">
+            您有某些營養成分服用劑量不足的情形。
+        </div>
+        <div *ngIf="detectOverdose() || detectSufficientdose()">
+            請盡速聯絡我們的合作藥師，我們將會提供完整的免費諮詢服務，為您做個人化的調整。
+        </div>
+        <div *ngIf="!detectOverdose() && !detectSufficientdose()">
+            您服用的營養品劑量符合標準。
+        </div>
     </div>
 </ion-content>

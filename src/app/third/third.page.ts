@@ -31,6 +31,7 @@ export class ThirdPage implements OnInit {
     private is_unit_correct = Array();
     private init = null;
     private is_init = false;
+    is_show = false;
     constructor(public loadingController: LoadingController, private ss: SuggestionService, private data: ShareService, public navCtrl: NavController, private el: ElementRef) {
     //this.presentLoading();
         // @ts-ignore
@@ -114,6 +115,7 @@ export class ThirdPage implements OnInit {
                 }
                 //console.log(_this.rda_ai);
                 setTimeout(()=>{
+                    _this.is_show = true;
                     _this.loadingController.dismiss('loading');
                 }, 500)
             });

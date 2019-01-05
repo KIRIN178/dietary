@@ -25,7 +25,7 @@ export class CompleteTestService implements AutoCompleteService {
     if(isDevMode()) {
         url = '127.0.0.1';
     } else {
-        url = 'dietary.cc';
+        url = 'pharmacist.dietary.cc';
     }
     return this.http.post("http://" + url + "/dietary/ajax_autocomplete_ingredient_client",'keyword='+keyword,httpOptions)
       .pipe(

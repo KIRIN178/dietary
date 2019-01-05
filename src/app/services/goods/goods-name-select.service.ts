@@ -16,7 +16,7 @@ export class GoodsNameSelectService {
         if(isDevMode()) {
             url = '127.0.0.1';
         } else {
-            url = 'dietary.cc';
+            url = 'pharmacist.dietary.cc';
         }
         return this.http.get("http://" + url + "/dietary/ajax_autocomplete_ingredient_client_select").pipe(
       map(

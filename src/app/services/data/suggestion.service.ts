@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, isDevMode } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { HttpHeaders } from '@angular/common/http';
 
@@ -22,7 +22,13 @@ export class SuggestionService {
         //console.log(data);
         //console.log(JSON.stringify(data["user"]));
         //console.log(encodeURIComponent(JSON.stringify(data["user"])));
-        return this.http.post("http://127.0.0.1/dietary/ajax_get_suggestion_result",'goods='+encodeURIComponent(JSON.stringify(data["goods"]))+'&user='+encodeURIComponent(JSON.stringify(data["user"])),httpOptions)
+        let url;
+        if(isDevMode()) {
+            url = '127.0.0.1';
+        } else {
+            url = 'pharmacist.dietary.cc';
+        }
+        return this.http.post("http://" + url + "/dietary/ajax_get_suggestion_result",'goods='+encodeURIComponent(JSON.stringify(data["goods"]))+'&user='+encodeURIComponent(JSON.stringify(data["user"])),httpOptions)
           .pipe(
             map(
                 result =>

@@ -1,5 +1,6 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { NavController, LoadingController } from '@ionic/angular';
+import { Meta, Title } from '@angular/platform-browser';
 
 import { first, last, map, reduce, find, skipWhile } from 'rxjs/operators';
 import { injectStyles } from 'shadow-dom-inject-styles';
@@ -13,6 +14,7 @@ import { SuggestionService } from "../services/data/suggestion.service";
   styleUrls: ['./third.page.scss'],
 })
 export class ThirdPage implements OnInit {
+    title = '藥食評估 - 評估結果';
     private name_goods = Array();
     private name_categ = Array();
     name_base = Array();
@@ -32,7 +34,7 @@ export class ThirdPage implements OnInit {
     private init = null;
     private is_init = false;
     is_show = false;
-    constructor(public loadingController: LoadingController, private ss: SuggestionService, private data: ShareService, public navCtrl: NavController, private el: ElementRef) {
+    constructor(public loadingController: LoadingController, private ss: SuggestionService, private data: ShareService, public navCtrl: NavController, private el: ElementRef, private tt: Title) {
     //this.presentLoading();
         // @ts-ignore
         //if(this.navCtrl.stack.length == 0) {
@@ -43,6 +45,7 @@ export class ThirdPage implements OnInit {
             window.location.href = "/home";
             return;
         }
+        this.tt.setTitle(this.title);
         let _this = this;
         this.presentLoading();
         this.data.getParam().pipe(first()).subscribe(val=>{

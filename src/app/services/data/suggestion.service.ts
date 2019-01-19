@@ -24,11 +24,11 @@ export class SuggestionService {
         //console.log(encodeURIComponent(JSON.stringify(data["user"])));
         let url;
         if(isDevMode()) {
-            url = '127.0.0.1';
+            url = 'http://127.0.0.1';
         } else {
-            url = 'pharmacist.dietary.cc';
+            url = 'https://pharmacist.dietary.cc';
         }
-        return this.http.post("http://" + url + "/dietary/ajax_get_suggestion_result",'goods='+encodeURIComponent(JSON.stringify(data["goods"]))+'&user='+encodeURIComponent(JSON.stringify(data["user"])),httpOptions)
+        return this.http.post(url + "/dietary/ajax_get_suggestion_result",'goods='+encodeURIComponent(JSON.stringify(data["goods"]))+'&user='+encodeURIComponent(JSON.stringify(data["user"])),httpOptions)
           .pipe(
             map(
                 result =>

@@ -63,10 +63,32 @@ export class DynamicGoodsComponent {
             //console.log(result);
             setTimeout(()=>{
                 _this.loadingController.dismiss('loading');
-                _this.showSelectAlert(result.list, i, idx);
+                _this.showSelectAlert(result, i, idx);
+            }, 500)
+        },(err)=>{
+            let _this = this;
+            setTimeout(()=>{
+                _this.loadingController.dismiss('loading');
+                this.netError();
+                //console.log(err);
             }, 500)
         });
         //this.completeTestService.getResults('a');
+    }
+    async netError() {
+        let msg;
+        if(navigator.onLine) {
+            msg = '無法連接伺服器，請稍候再試。如果持續連接失敗，請聯絡藥食評估工作坊。'
+        } else {
+            msg = '沒有網路，請確認已連上網路。';
+        }
+        const alert = await this.alertController.create({
+          header: '發生錯誤',
+          subHeader: '連接失敗',
+          message: msg,
+          buttons: ['瞭解']
+        });
+        await alert.present();
     }
     async deleteGoods(i) {
         const alert = await this.alertController.create({
@@ -129,7 +151,7 @@ export class DynamicGoodsComponent {
         const alert = await this.alertController.create({
           header: '選擇成分',
             mode: 'ios',
-          inputs: list,
+          inputs: list.list,
           buttons: [
             {
               text: '取消',

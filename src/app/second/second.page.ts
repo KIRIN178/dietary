@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { FormGroup } from '@angular/forms';
+import { Meta, Title } from '@angular/platform-browser';
 
 import { first, last, map, reduce, find, skipWhile } from 'rxjs/operators';
 import { injectStyles } from 'shadow-dom-inject-styles';
@@ -25,14 +26,16 @@ export class SecondPage implements OnInit {
         is_milk: '',
         is_remember: ''
     };
+    title = '藥食評估 - 輸入營養品';
     goods: any[];
     form: FormGroup;
     
-    constructor(public navCtrl: NavController, private data: ShareService, private gs: GoodsService, private el: ElementRef, private gcs: GoodsControlService) {
+    constructor(public navCtrl: NavController, private data: ShareService, private gs: GoodsService, private el: ElementRef, private gcs: GoodsControlService, private tt: Title) {
         //alert(data.param["user"].name);
         // @ts-ignore
         if(this.navCtrl.lastNavId == 1)
           window.location.href = "/home";
+        this.tt.setTitle(this.title);
     }
     loadScript() {
         /*let node = document.createElement('script');

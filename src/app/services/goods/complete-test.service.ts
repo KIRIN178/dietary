@@ -23,11 +23,11 @@ export class CompleteTestService implements AutoCompleteService {
     };
     let url;
     if(isDevMode()) {
-        url = '127.0.0.1';
+        url = 'http://127.0.0.1';
     } else {
-        url = 'pharmacist.dietary.cc';
+        url = 'https://pharmacist.dietary.cc';
     }
-    return this.http.post("http://" + url + "/dietary/ajax_autocomplete_ingredient_client",'keyword='+keyword,httpOptions)
+    return this.http.post(url + "/dietary/ajax_autocomplete_ingredient_client",'keyword='+keyword,httpOptions)
       .pipe(
         map(
             result =>

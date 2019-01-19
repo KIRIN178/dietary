@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-back-button defaultHref="/second" slot="start" text="前一步"></ion-back-button>
-    <ion-title>評估結果</ion-title>
+    <ion-title>{{title}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -39,7 +39,7 @@
                         <div *ngFor='let sub of temp;'>
                             <div *ngIf="name_base[i]==name_sub[sub]">
                                     <span [hidden]="sub==name_base[i]">{{sub}}:</span>
-                                    <span class="quantity">{{quantity[c] * amount[c]}}</span> x <span class="dose">{{goods_detail[c][sub]["dose"]}}</span><span class="unit" [class.danger]="checkUnit(i,c,sub)"> {{goods_detail[c][sub]["unit"]}}</span>
+                                    <span class="quantity">{{quantity[c]}}</span> x <span class="dose">{{goods_detail[c][sub]["dose"]}}</span><span class="unit" [class.danger]="checkUnit(i,c,sub)"> {{goods_detail[c][sub]["unit"]}}</span>
                             </div>
                         </div>
                     </td>

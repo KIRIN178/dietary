@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      藥食評估 - 自我評估小幫手
+      {{title}}
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -78,6 +78,11 @@
 			  <ion-checkbox id="remember" name="remember" #remember="ngModel" [(ngModel)]="users.is_remember" [checked]="users.is_remember"></ion-checkbox>
 			</ion-item>
             <ion-button [disabled]="!myForm.form.valid" type="submit" (click)="next()" expand="full" margin-top>下一步</ion-button>
+            <div *ngIf="deferredPrompt !== null || token === null" margin-top>
+                <div>獲得最新資訊:</div>
+                <ion-button type="button" *ngIf="token === null" (click)="requestPushNotificationsPermission()" expand="full">允許推播通知</ion-button>
+                <ion-button type="button" *ngIf="deferredPrompt !== null" (click)="requestAdd2HomeScreen()" expand="full">安裝網站至桌面</ion-button>
+            </div>
         </form>
     </ion-list>
     <ion-row>

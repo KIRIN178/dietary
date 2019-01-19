@@ -24,7 +24,7 @@
                 <ion-button fill="outline" slot="end" color="dark" (click)="clickNutrition(i,idx)">選擇</ion-button>
             </ion-item>
             <ion-item class="item-accordion" [class.item-hide]="!item.show">
-                <ion-label stacked>劑量</ion-label>
+                <ion-label stacked>每一份劑量</ion-label>
                 <ion-input type="text" class="input-text" [value]="nutrition.detail.dose" (ionBlur)="numberCheckDose($event,i,idx)" placeholder="請填寫" (ionInput)="updateDose(i, idx, $event)" required></ion-input>
             </ion-item>
             <ion-item class="item-accordion" [class.item-hide]="!item.show">

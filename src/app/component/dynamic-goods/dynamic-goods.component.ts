@@ -150,6 +150,7 @@ export class DynamicGoodsComponent {
         let _this = this;
         const alert = await this.alertController.create({
           header: '選擇成分',
+          message: '如果您找不到體驗版未提供的營養成分，請聯絡我們的合作藥師，我們將會提供完整的免費諮詢服務。',
             mode: 'ios',
           inputs: list.list,
           buttons: [

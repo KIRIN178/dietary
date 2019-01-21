@@ -250,7 +250,7 @@ export class ThirdPage implements OnInit {
         let _this = this;
         let res = false;
         this.name_base.forEach(function(value, i) {
-            if((_this.calc_taking_rda_ai(i) > _this.rda_ai[i] && _this.rda_ai[i] !== null) || (_this.calc_taking_rda_ai(i) > _this.ul[i] && _this.ul[i] !== null)) {
+            if((_this.calc_taking_rda_ai(i) > _this.ul[i] && _this.ul[i] !== null)) {
                 res = true;
             }
         })
@@ -260,7 +260,17 @@ export class ThirdPage implements OnInit {
         let _this = this;
         let res = false;
         this.name_base.forEach(function(value, i) {
-            if(_this.calc_taking_rda_ai(i) < _this.rda_ai[i]*0.8 && _this.rda_ai[i] !== null) {
+            if(_this.calc_taking_rda_ai(i) < _this.rda_ai[i] && _this.rda_ai[i] !== null) {
+                res = true;
+            }
+        })
+        return res;
+    }
+    detectWastedose() {
+        let _this = this;
+        let res = false;
+        this.name_base.forEach(function(value, i) {
+            if(_this.calc_taking_rda_ai(i) > _this.rda_ai[i] && _this.rda_ai[i] !== null) {
                 res = true;
             }
         })

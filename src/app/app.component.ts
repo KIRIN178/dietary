@@ -6,6 +6,7 @@ import { AngularFireMessaging } from '@angular/fire/messaging';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+
 import { ServiceWorkerService } from "./services/data/service-worker.service";
 
 @Component({
@@ -22,7 +23,9 @@ export class AppComponent {
     ) {
         this.initializeApp();
         this.sws.checkForUpdates();
-            //console.log(navigator.serviceWorker)
+        if(this.platform.is('android')) {
+            this.statusBar.backgroundColorByHexString('#fff');
+        }
         /*navigator.serviceWorker.getRegistration().then(reg => {
             //console.log('reg: '+reg)
             //if(typeof reg !== 'undefined') {

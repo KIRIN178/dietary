@@ -55,7 +55,7 @@ export class HomePage {
         .subscribe(
             (token) => { 
                 _this.token = token;
-                console.log(token);
+                //console.log(token);
                 if(token === null && localStorage.getItem('token') !== null) {
                     _this.sws.cancelNotification(localStorage.getItem('token')).subscribe(result=>{});;
                     localStorage.removeItem('token');

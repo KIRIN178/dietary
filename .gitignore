@@ -20,7 +20,8 @@ npm-debug.log*
 .versions/
 coverage/
 www/
-node_modules/
+node_modules/*
+!node_modules/ionic2-auto-complete
 tmp/
 temp/
 platforms/
